@@ -21,12 +21,13 @@ angular.module('agBlog', ['ngAnimate'])
 	$scope.postArticle = function(article) {
 		var id = $scope.articleID;
 		if (typeof id !== "undefined") {
-			$http.post('api/article/'+id, data = {
+			$http.put('api/articles/'+id, data = {
 				title: $scope.newTitle,
 				body: $scope.newBody
 			})
 			.success(function() {
 				$scope.getData();
+				$scope.activeArticle = '';
 			})
 		} else {
 			$http.post('api/articles', data = {
@@ -35,6 +36,7 @@ angular.module('agBlog', ['ngAnimate'])
 			})
 			.success(function() {
 				$scope.getData();
+				$scope.activeArticle = '';
 			});
 		}
 	};
@@ -46,5 +48,11 @@ angular.module('agBlog', ['ngAnimate'])
 			$scope.getData();
 			$scope.activeArticle = '';
 		});
+	};
+
+	$scope.resetForm = function() {
+		$scope.newTitle = '';
+		$scope.newBody = '';
+		$scope.articleID = undefined;
 	};
 });
