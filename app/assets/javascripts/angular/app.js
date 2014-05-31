@@ -14,29 +14,11 @@ angular.module('agBlog', ['ngResource'])
 	$scope.postArticle = function(article) {
 		var id = $scope.articleID;
 		if (typeof id !== "undefined") {
-			$http.put('api/articles/'+id, data = {
-				title: $scope.newTitle,
-				body: $scope.newBody
-			})
-			.success(function() {
-				$scope.getData();
-				$scope.activeArticle = '';
-				$scope.newBody = '';
-				$scope.newTitle = '';
-				$scope.articleID = undefined;
-			})
+			// patch article from activeArticle
 		} else {
-			$http.post('api/articles', data = {
-				title: $scope.newTitle,
-				body: $scope.newBody
-			})
-			.success(function() {
-				$scope.getData();
-				$scope.activeArticle = '';
-				$scope.newBody = '';
-				$scope.newTitle = '';
-				$scope.articleID = undefined;
-			});
+			// post new article
+			articleFactory.save($scope.activeArticle);
+			$scope.articles = articleFactory.query();
 		}
 	};
 
@@ -50,9 +32,7 @@ angular.module('agBlog', ['ngResource'])
 	};
 
 	$scope.resetForm = function() {
-		$scope.newTitle = '';
-		$scope.newBody = '';
-		$scope.articleID = undefined;
+		$scope.activeArticle = undefined;
 	};
 })
 

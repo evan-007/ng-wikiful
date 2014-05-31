@@ -20,9 +20,11 @@
 			</ul>
 		</div>
 		<div class='col-sm-6'>
-			<h3>{{activeArticle.title}}</h3>
-			<p>{{activeArticle.body}}</p>
-			<button ng-if="activeArticle" ng-click="deleteArticle(activeArticle)" class="btn btn-danger">Delete! no undos!</button>
+			<div class="singleArticle" ng-if="activeArticle">
+				<h3>{{activeArticle.title}}</h3>
+				<p>{{activeArticle.body}}</p>
+				<button ng-if="activeArticle" ng-click="deleteArticle(activeArticle)" class="btn btn-danger">Delete! no undos!</button>
+			</div>
 		</div>
 
 		<div class="col-sm-4">
