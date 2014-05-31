@@ -29,7 +29,8 @@ angular.module('agBlog', ['ngAnimate'])
 		var id = article.id;
 		$http.delete('api/articles/'+id)
 		.success(function() {
-			$scope.getData;
+			$scope.getData();
+			$scope.activeArticle = '';
 		});
 	};
 });
