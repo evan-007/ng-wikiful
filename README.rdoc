@@ -10,7 +10,7 @@ Angular is embedded in the Rails app:
 
 * Angular app is bound to <tt>app/views/layouts/application.html.erb<tt>
 
-
+* Heroku setting in <tt>config/environments/production.rb</tt>: <tt>config.assets.js_compressor = Uglifier.new(mangle: false)</tt>
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
