@@ -5,8 +5,3 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-for n in 1..20 
-	a = Article.create(title: "Article ##{n}",
-		body: "wow what an interesting article about the number #{n}!")
-	a.save
-end
