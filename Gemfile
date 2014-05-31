@@ -9,10 +9,14 @@ gem 'pg'
 gem 'sass-rails', '~> 4.0.3'
 
 gem 'rspec-rails', group: [:test, :development]
-
+#need minitest before shoulda to stop messages on rspec run wtf
+gem 'minitest'
+gem 'shoulda-matchers', group: [:test]
 gem 'factory_girl_rails', group: :test
 
 gem 'angularjs-rails'
+
+
 # Use Uglifier as compressor for JavaScript assets
 # gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
