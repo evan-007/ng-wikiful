@@ -10,4 +10,12 @@ describe Api::ArticlesController do
 			expect(assigns(:articles)).to eq [@article, @article3, @article2]
 		end
 	end
+
+	describe 'GET #show' do
+		it "assigns the requested article to @article" do
+			@article = create(:article)
+			get :show, id: @article
+			expect(assigns(:article)).to eq @article
+		end
+	end
 end
