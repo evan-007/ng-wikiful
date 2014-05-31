@@ -1,16 +1,12 @@
-angular.module('agBlog', ['ngAnimate'])
+angular.module('agBlog', ['ngResource'])
 .config(function($httpProvider) {
 	$httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token')
 	.attr('content');
 })
-.controller('articlesCtrl', function($scope, $http){
-	$scope.getData = function(){
-		$http.get('api/articles')
-		.success(function(data) {
-			console.log(data);
-			$scope.articles = data;
-		});
-	};
+.controller('articlesCtrl', function($scope, $http, articleFactory){
+	
+	$scope.articles = articleFactory.query();
+	
 	$scope.showArticle = function(article) {
 		$scope.activeArticle = article;
 		$scope.newTitle = article.title;
@@ -61,4 +57,8 @@ angular.module('agBlog', ['ngAnimate'])
 		$scope.newBody = '';
 		$scope.articleID = undefined;
 	};
+})
+
+.factory('articleFactory', function($resource) {
+	return $resource('/api/articles/:id', {id: '@id'});
 });
