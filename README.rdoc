@@ -1,6 +1,6 @@
 == README
 
-<tt>git clone</tt>, <tt>bundle install</tt>, <tt>rake db:create db:migrate db:seed</tt>. 
+<tt>git clone</tt>, <tt>bundle install</tt>, <tt>rake db:create db:migrate</tt> and <tt>rake get_data</tt>. 
 
 Angular is embedded in the Rails app:
 
