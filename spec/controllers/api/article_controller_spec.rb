@@ -33,4 +33,14 @@ describe Api::ArticlesController do
 			.to change(Article, :count).by(-1)
 		end
 	end
+
+	describe 'PUT #update' do
+		it 'updates the article' do
+			@article = create(:article)
+			put :update, id: @article.id, article: attributes_for(
+				:article, title: 'some new title')
+			@article.reload
+			expect(@article.title).to eq 'some new title'
+		end
+	end
 end

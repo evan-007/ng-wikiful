@@ -13,16 +13,30 @@ angular.module('agBlog', ['ngAnimate'])
 	};
 	$scope.showArticle = function(article) {
 		$scope.activeArticle = article;
+		$scope.newTitle = article.title;
+		$scope.newBody = article.body;
+		$scope.articleID = article.id;
 	};
 
-	$scope.postArticle = function() {
-		$http.post('api/articles', data = {
-			title: $scope.newTitle,
-			body: $scope.newBody
-		})
-		.success(function() {
-			$scope.getData();
-		});
+	$scope.postArticle = function(article) {
+		var id = $scope.articleID;
+		if (typeof id !== "undefined") {
+			$http.post('api/article/'+id, data = {
+				title: $scope.newTitle,
+				body: $scope.newBody
+			})
+			.success(function() {
+				$scope.getData();
+			})
+		} else {
+			$http.post('api/articles', data = {
+				title: $scope.newTitle,
+				body: $scope.newBody
+			})
+			.success(function() {
+				$scope.getData();
+			});
+		}
 	};
 
 	$scope.deleteArticle = function(article) {

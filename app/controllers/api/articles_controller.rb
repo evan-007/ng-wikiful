@@ -25,6 +25,13 @@ module Api
 			end
 		end
 
+		def update
+			@article = Article.find(params[:id])
+			if @article.update(article_params)
+				render json: nil, status: 200
+			end
+		end
+
 		private
 		  def article_params
 		  	params.require(:article).permit(:title, :body)
