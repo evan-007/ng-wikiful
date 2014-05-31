@@ -1,7 +1,7 @@
 module Api
 	class ArticlesController < ApplicationController
 		def index
-			@articles = Article.all
+			@articles = Article.all.includes(:categories)
 			render json: @articles
 		end
 

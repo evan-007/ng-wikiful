@@ -2,12 +2,21 @@ require 'spec_helper'
 
 describe Api::ArticlesController do
 	describe 'GET #index' do
-		it "returns an array of all articles" do
-			@article = create(:article)
+		before do
+			@article = create(:article_with_categories)
 			@article3 = create(:article)
 			@article2 = create(:article)
+		end
+
+		it "returns an array of all articles" do
 			get :index
 			expect(assigns(:articles)).to eq [@article, @article3, @article2]
+		end
+
+		it 'includes categories in the response' do
+			get :index
+			data = JSON.parse(response.body)
+			data[0]['categories'].should_not be_blank
 		end
 	end
 
