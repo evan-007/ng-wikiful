@@ -6,7 +6,7 @@ module Api
 		end
 
 		def show
-			@article = Article.find(params[:id])
+			@article = Article.includes(:categories).find(params[:id])
 			render json: @article
 		end
 

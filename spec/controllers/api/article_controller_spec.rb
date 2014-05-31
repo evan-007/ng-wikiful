@@ -17,6 +17,13 @@ describe Api::ArticlesController do
 			get :show, id: @article
 			expect(assigns(:article)).to eq @article
 		end
+
+		it 'includes article categories' do
+			@article = create(:article_with_categories)
+			get :show, id: @article
+			data = JSON.parse(response.body)
+			data['categories'].should_not be_blank
+		end
 	end
 
 	describe 'POST #create' do
