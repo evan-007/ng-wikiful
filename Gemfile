@@ -17,6 +17,7 @@ gem 'factory_girl_rails', group: :test
 
 gem 'angularjs-rails'
 
+gem "active_model_serializers"
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
