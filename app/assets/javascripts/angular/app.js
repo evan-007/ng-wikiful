@@ -3,9 +3,10 @@ angular.module('agBlog', ['ngResource'])
 	$httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token')
 	.attr('content');
 })
-.controller('articlesCtrl', function($scope, $http, articleFactory){
+.controller('articlesCtrl', function($scope, $http, articleFactory, categoryFactory){
 	
 	$scope.articles = articleFactory.query();
+	$scope.categories = categoryFactory.query();
 	
 	$scope.showArticle = function(article) {
 		$scope.activeArticle = articleFactory.get(article);
@@ -41,4 +42,8 @@ angular.module('agBlog', ['ngResource'])
 	return $resource('/api/articles/:id', {id: '@id'}, {
 		update: {method: 'PUT'}
 	});
+})
+
+.factory('categoryFactory', function($resource) {
+	return $resource('/api/categories/:id', {id: '@id'});
 });
