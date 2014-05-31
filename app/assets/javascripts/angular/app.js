@@ -12,11 +12,14 @@ angular.module('agBlog', ['ngResource'])
 	};
 
 	$scope.postArticle = function(article) {
-		var id = $scope.articleID;
-		if (typeof id !== "undefined") {
-			// patch article from activeArticle
+		var activeId = $scope.activeArticle.id;
+
+		if (activeId > 0 ) {
+			articleFactory.update( {id: activeId}, $scope.activeArticle);
+			// timeout is bad, refactor for promise
+			setTimeout(2300);
+			$scope.articles = articleFactory.query();
 		} else {
-			// post new article
 			articleFactory.save($scope.activeArticle);
 			$scope.articles = articleFactory.query();
 		}
@@ -24,11 +27,9 @@ angular.module('agBlog', ['ngResource'])
 
 	$scope.deleteArticle = function(article) {
 		var id = article.id;
-		$http.delete('api/articles/'+id)
-		.success(function() {
-			$scope.getData();
-			$scope.activeArticle = '';
-		});
+		articleFactory.delete($scope.activeArticle);
+		$scope.activeArticle = undefined;
+		$scope.articles = articleFactory.query();
 	};
 
 	$scope.resetForm = function() {
@@ -37,5 +38,7 @@ angular.module('agBlog', ['ngResource'])
 })
 
 .factory('articleFactory', function($resource) {
-	return $resource('/api/articles/:id', {id: '@id'});
+	return $resource('/api/articles/:id', {id: '@id'}, {
+		update: {method: 'PUT'}
+	});
 });
