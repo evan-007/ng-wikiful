@@ -18,4 +18,19 @@ describe Api::ArticlesController do
 			expect(assigns(:article)).to eq @article
 		end
 	end
+
+	describe 'POST #create' do
+		it 'saves the article in the database' do
+			expect {post :create, article: attributes_for(:article)}
+			.to change(Article, :count).by(1)
+		end
+	end
+
+	describe 'DELETE #destroy' do
+		it 'deletes the article from the database' do
+			@article = create(:article)
+			expect {delete :destroy, id: @article}
+			.to change(Article, :count).by(-1)
+		end
+	end
 end

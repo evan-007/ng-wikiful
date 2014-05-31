@@ -7,6 +7,7 @@ gem 'rails', '4.1.0'
 gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
+gem 'bootstrap-sass', '~> 3.1.1'
 
 gem 'rspec-rails', group: [:test, :development]
 #need minitest before shoulda to stop messages on rspec run wtf
