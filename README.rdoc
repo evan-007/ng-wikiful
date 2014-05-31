@@ -6,9 +6,9 @@ Angular is embedded in the Rails app:
 
 * <tt>rspec</tt> runs simple rails tests
 
-* Angular app code is in <tt>app/assets/javascripts/angular<tt>
+* Angular app code is in <tt>app/assets/javascripts/angular</tt>
 
-* Angular app is bound to <tt>app/views/layouts/application.html.erb<tt>
+* Angular app is bound to <tt>app/views/layouts/application.html.erb</tt>
 
 * Heroku setting in <tt>config/environments/production.rb</tt>: <tt>config.assets.js_compressor = Uglifier.new(mangle: false)</tt>
 
