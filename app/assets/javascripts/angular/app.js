@@ -28,6 +28,9 @@ angular.module('agBlog', ['ngAnimate'])
 			.success(function() {
 				$scope.getData();
 				$scope.activeArticle = '';
+				$scope.newBody = '';
+				$scope.newTitle = '';
+				$scope.articleID = undefined;
 			})
 		} else {
 			$http.post('api/articles', data = {
