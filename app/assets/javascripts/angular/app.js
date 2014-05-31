@@ -8,10 +8,7 @@ angular.module('agBlog', ['ngResource'])
 	$scope.articles = articleFactory.query();
 	
 	$scope.showArticle = function(article) {
-		$scope.activeArticle = article;
-		$scope.newTitle = article.title;
-		$scope.newBody = article.body;
-		$scope.articleID = article.id;
+		$scope.activeArticle = articleFactory.get(article);
 	};
 
 	$scope.postArticle = function(article) {
