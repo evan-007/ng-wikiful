@@ -41,11 +41,11 @@ angular.module('agBlog', ['ngResource' ,'ui.select2'])
 })
 
 .factory('articleFactory', function($resource) {
-	return $resource('/api/articles/:id', {id: '@id'}, {
+	return $resource('/api/v1/articles/:id', {id: '@id'}, {
 		update: {method: 'PUT'}
 	});
 })
 
 .factory('categoryFactory', function($resource) {
-	return $resource('/api/categories/:id', {id: '@id', });
+	return $resource('/api/v1/categories/:id', {id: '@id', });
 });

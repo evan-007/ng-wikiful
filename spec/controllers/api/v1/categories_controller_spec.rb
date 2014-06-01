@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::CategoriesController do
+describe Api::V1::CategoriesController do
 	describe 'GET #index' do
 		it 'assigns all categories to an array' do
 			@cat1 = create(:category)

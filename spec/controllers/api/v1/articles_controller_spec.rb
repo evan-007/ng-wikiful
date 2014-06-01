@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::ArticlesController do
+describe Api::V1::ArticlesController do
 	describe 'GET #index' do
 		before do
 			@article = create(:article_with_categories)
