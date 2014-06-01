@@ -15,5 +15,6 @@
 //= require select2
 //= require angular
 //= require angular-resource
-//= require select2ui
+//= require lodash
+//= require restangular.min
 //= require_tree .

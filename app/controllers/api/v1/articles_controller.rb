@@ -35,7 +35,8 @@ module Api
 
 			private
 			  def article_params
-			  	params.require(:article).permit(:title, :body, :categories)
+			  	params.require(:article).permit(:title, :body,
+			  	 categories_attributes: [:name, :id])
 			  end
 		end
 	end

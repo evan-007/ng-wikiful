@@ -1,17 +1,22 @@
-angular.module('agBlog', ['ngResource' ,'ui.select2'])
+angular.module('agBlog', ['ngResource' ,'restangular'])
 .config(function($httpProvider) {
 	$httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token')
 	.attr('content');
 })
-.controller('articlesCtrl', function($scope, $http, articleFactory, categoryFactory){
+.controller('articlesCtrl', function($scope, $http, articleFactory, categoryFactory, Restangular){
 	
-	$scope.articles = articleFactory.query();
+	// $scope.articles = articleFactory.query();
 	$scope.categories = categoryFactory.query();
 	
 	$scope.showArticle = function(article) {
 		var articleId = article.id;
 		$scope.activeArticle = articleFactory.get({id: articleId});
 	};
+
+	$scope.getArticles = Restangular.all('api/v1/articles').getList()
+	.then(function(data){
+		$scope.articles = data;
+	});
 
 	$scope.postArticle = function(article) {
 		var activeId = $scope.activeArticle.id;
@@ -48,4 +53,12 @@ angular.module('agBlog', ['ngResource' ,'ui.select2'])
 
 .factory('categoryFactory', function($resource) {
 	return $resource('/api/v1/categories/:id', {id: '@id', });
+})
+
+.factory('restangularArticles', function(restangular) {
+	var baseArticles = Restangular.all('api/v1/articles');
+
+	baseArticles.getList().then(function(articles){
+		$scope.allArticles = articles;
+	});
 });
