@@ -1,4 +1,4 @@
-angular.module('agBlog', ['ngResource'])
+angular.module('agBlog', ['ngResource' ,'ui.select2'])
 .config(function($httpProvider) {
 	$httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token')
 	.attr('content');

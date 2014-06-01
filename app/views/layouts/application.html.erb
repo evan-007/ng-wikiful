@@ -37,7 +37,10 @@
 				<label>Body</label>
 				<textarea name="articleBody" rows='12' ng-model="activeArticle.body" class="form-control" required></textarea>
 				<label>Categories</label>
-				<select name="newArticleCategories" ng-model="activeArticle.categories" ng-options="category.id as category.name for category in categories"></select>
+				<select multiple ui-select2 name="newArticleCategories" ng-model="activeArticle.categories" style="width:200px;"
+				data-placeholder="Pick some categories">
+					<option ng-repeat="category in categories" value="{{category.id}}">{{category.name}}</option>
+				</select><br/>
 				<input type="submit" class="btn btn-primary" value="Post it!">
 			</form>
 		</div>
