@@ -9,11 +9,13 @@ angular.module('agBlog', ['ngResource' ,'ui.select2'])
 	$scope.categories = categoryFactory.query();
 	
 	$scope.showArticle = function(article) {
-		$scope.activeArticle = articleFactory.get(article);
+		var articleId = article.id;
+		$scope.activeArticle = articleFactory.get({id: articleId});
 	};
 
 	$scope.postArticle = function(article) {
 		var activeId = $scope.activeArticle.id;
+		var categories = $scope.activeArticle.categories;
 
 		if (activeId > 0 ) {
 			articleFactory.update( {id: activeId}, $scope.activeArticle);
@@ -45,5 +47,5 @@ angular.module('agBlog', ['ngResource' ,'ui.select2'])
 })
 
 .factory('categoryFactory', function($resource) {
-	return $resource('/api/categories/:id', {id: '@id'});
+	return $resource('/api/categories/:id', {id: '@id', });
 });
