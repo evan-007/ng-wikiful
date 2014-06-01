@@ -9,8 +9,8 @@ angular.module('ngWikiful', ['ngResource' ,'restangular'])
 	$scope.categories = categoryFactory.query();
 	
 	$scope.showArticle = function(article) {
-		var articleId = article.id;
-		Restangular.one("api/v1/articles", articleId).get()
+		// var articleId = article.id;
+		Restangular.one("api/v1/articles", article.id).get()
 		.then(function(data){
 			$scope.activeArticle = data;
 		});
@@ -21,13 +21,9 @@ angular.module('ngWikiful', ['ngResource' ,'restangular'])
 		$scope.articles = data;
 	});
 
-	$scope.postArticle = function() {
-		var activeId = $scope.activeArticle.id;
-		var article = $scope.activeArticle;
-		// var categories = $scope.activeArticle.categories;
-		// $scope.activeArticle.categories_attributes = $scope.activeArticle.categories;
+	$scope.postArticle = function(article) {
 
-		if (activeId > 0 ) {
+		if (article.id > 0 ) {
 			article.put()
 			.then(function() {
 				Restangular.all('api/v1/articles').getList()
