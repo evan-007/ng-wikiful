@@ -10,7 +10,10 @@ angular.module('agBlog', ['ngResource' ,'restangular'])
 	
 	$scope.showArticle = function(article) {
 		var articleId = article.id;
-		$scope.activeArticle = articleFactory.get({id: articleId});
+		Restangular.one("api/v1/articles", articleId).get()
+		.then(function(data){
+			$scope.activeArticle = data;
+		});
 	};
 
 	$scope.getArticles = Restangular.all('api/v1/articles').getList()
@@ -23,21 +26,34 @@ angular.module('agBlog', ['ngResource' ,'restangular'])
 		var categories = $scope.activeArticle.categories;
 
 		if (activeId > 0 ) {
-			articleFactory.update( {id: activeId}, $scope.activeArticle);
-			// timeout is bad, refactor for promise
-			setTimeout(2300);
-			$scope.articles = articleFactory.query();
+			article.put()
+			.then(function() {
+				Restangular.all('api/v1/articles').getList()
+				.then(function(data){
+					$scope.articles = data;
+				});
+			});
 		} else {
-			articleFactory.save($scope.activeArticle);
-			$scope.articles = articleFactory.query();
+			Restangular.all('api/v1/articles').post(article)
+			.then(function() {
+				Restangular.all('api/v1/articles').getList()
+				.then(function(data){
+					$scope.articles = data;
+				});
+			});
 		}
 	};
 
 	$scope.deleteArticle = function(article) {
 		var id = article.id;
-		articleFactory.delete($scope.activeArticle);
-		$scope.activeArticle = undefined;
-		$scope.articles = articleFactory.query();
+		Restangular.one("api/v1/articles", id).remove()
+		.then(function() {
+			$scope.activeArticle = undefined;
+			Restangular.all('api/v1/articles').getList()
+			.then(function(data){
+				$scope.articles = data;
+			});
+		});
 	};
 
 	$scope.resetForm = function() {
