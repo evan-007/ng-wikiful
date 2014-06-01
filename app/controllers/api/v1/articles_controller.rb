@@ -28,14 +28,14 @@ module Api
 
 			def update
 				@article = Article.find(params[:id])
-				if @article.update(article_params)
+				if @article.update_attributes(article_params)
 					render json: nil, status: 200
 				end
 			end
 
 			private
 			  def article_params
-			  	params.require(:article).permit(:title, :body,
+			  	params.require(:article).permit(:title, :body, :id,
 			  	 categories_attributes: [:name, :id])
 			  end
 		end

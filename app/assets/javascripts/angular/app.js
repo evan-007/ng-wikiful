@@ -1,4 +1,4 @@
-angular.module('agBlog', ['ngResource' ,'restangular'])
+angular.module('ngWikiful', ['ngResource' ,'restangular'])
 .config(function($httpProvider) {
 	$httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token')
 	.attr('content');
@@ -21,9 +21,11 @@ angular.module('agBlog', ['ngResource' ,'restangular'])
 		$scope.articles = data;
 	});
 
-	$scope.postArticle = function(article) {
+	$scope.postArticle = function() {
 		var activeId = $scope.activeArticle.id;
-		var categories = $scope.activeArticle.categories;
+		var article = $scope.activeArticle;
+		// var categories = $scope.activeArticle.categories;
+		// $scope.activeArticle.categories_attributes = $scope.activeArticle.categories;
 
 		if (activeId > 0 ) {
 			article.put()
