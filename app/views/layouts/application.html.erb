@@ -25,7 +25,8 @@
 				<p>{{activeArticle.body}}</p>
 				<h5>Categories:</h5>
 				<p> <span ng-repeat="category in activeArticle.categories">{{category.name}} </span></p>
-				<button ng-if="activeArticle.id" ng-click="deleteArticle(activeArticle)" class="btn btn-danger">Delete! no undos!</button>
+				<button ng-if="activeArticle.id" ng-click="deleteArticle(activeArticle)" class="btn btn-danger">Delete! no undos!</button><button ng-click="gimmeIds(activeArticle.categories)">gimme json</button>
+				<p ng-if="jsonData">{{jsonData}}</p>
 			</div>
 		</div>
 

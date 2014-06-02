@@ -12,6 +12,7 @@ angular.module('ngWikiful', ['ngResource' ,'restangular'])
 		// var articleId = article.id;
 		Restangular.one("api/v1/articles", article.id).get()
 		.then(function(data){
+			console.log(data);
 			$scope.activeArticle = data;
 		});
 	};
@@ -22,15 +23,17 @@ angular.module('ngWikiful', ['ngResource' ,'restangular'])
 	});
 
 	$scope.postArticle = function() {
-    var article = {
+		gimmeIds($scope.activeArticle.categories);
+    var jsonArticle = {
       article: {
         title: $scope.activeArticle.title,
         body: $scope.activeArticle.body,
-        category_ids: $scope.activeArticle.categories
+        category_ids: $scope.activeArticle.catIds,
+        id: $scope.activeArticle.id
       }
-    }
-		if (article.id > 0 ) {
-			article.put()
+    };
+		if ($scope.activeArticle.id > 0 ) {
+			$http.put('/api/v1/articles/'+$scope.activeArticle.id, jsonArticle)
 			.then(function() {
 				Restangular.all('api/v1/articles').getList()
 				.then(function(data){
@@ -62,6 +65,22 @@ angular.module('ngWikiful', ['ngResource' ,'restangular'])
 
 	$scope.resetForm = function() {
 		$scope.activeArticle = undefined;
+	};
+
+	gimmeIds = function(categoriesArray) {
+		var idList = [];
+    for(var i=0;i<categoriesArray.length;i++){
+        var obj = categoriesArray[i];
+        for(var key in obj){
+            var attrName = key;
+            var attrValue = obj[key];
+            if (key === "id") {
+							console.log(attrValue);
+							idList.push(attrValue);
+            }
+        }
+        $scope.activeArticle.catIds = idList;
+    }
 	};
 })
 

@@ -29,7 +29,9 @@ module Api
 			def update
 				@article = Article.find(params[:id])
 				if @article.update_attributes(article_params)
-					render json: nil, status: 200
+					render json: @article, status: 200
+				else
+					render json: @article, status: 500
 				end
 			end
 
