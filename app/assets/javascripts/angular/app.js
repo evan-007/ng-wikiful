@@ -21,8 +21,14 @@ angular.module('ngWikiful', ['ngResource' ,'restangular'])
 		$scope.articles = data;
 	});
 
-	$scope.postArticle = function(article) {
-
+	$scope.postArticle = function() {
+    var article = {
+      article: {
+        title: $scope.activeArticle.title,
+        body: $scope.activeArticle.body,
+        category_ids: $scope.activeArticle.categories
+      }
+    }
 		if (article.id > 0 ) {
 			article.put()
 			.then(function() {
