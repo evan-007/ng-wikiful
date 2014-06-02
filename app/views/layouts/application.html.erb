@@ -39,8 +39,8 @@
 
 				<label>Categories</label>
 
-				<select multiple="true" ng-model="activeArticle.category_ids" style="width:200px;"
-				ng-options="category as category.name for category in categories">
+				<select multiple="true" ng-model="activeArticle.categories" style="width:200px;"
+				ng-options="category as category.name for category in categories track by category.id">
 				</select><br/>
 				<input type="submit" class="btn btn-primary" value="Post it!">
 			</form>
