@@ -32,6 +32,14 @@ angular.module('ngWikiful', ['ngResource' ,'restangular'])
         id: $scope.activeArticle.id
       }
     };
+
+    var newArticle = {
+			article: {
+        title: $scope.activeArticle.title,
+        body: $scope.activeArticle.body,
+        category_ids: $scope.activeArticle.catIds,
+      }
+    };
 		if ($scope.activeArticle.id > 0 ) {
 			$http.put('/api/v1/articles/'+$scope.activeArticle.id, jsonArticle)
 			.then(function() {
@@ -41,7 +49,7 @@ angular.module('ngWikiful', ['ngResource' ,'restangular'])
 				});
 			});
 		} else {
-			Restangular.all('api/v1/articles').post(article)
+			Restangular.all('api/v1/articles').post(newArticle)
 			.then(function() {
 				Restangular.all('api/v1/articles').getList()
 				.then(function(data){
