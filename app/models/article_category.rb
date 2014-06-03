@@ -1,6 +1,6 @@
 class ArticleCategory < ActiveRecord::Base
-  belongs_to :article
-  belongs_to :category
-  # validates :category_id, :article_id, presence: true
+  belongs_to :article, inverse_of: :article_categories
+  belongs_to :category, inverse_of: :article_categories
+  validates :category, :article, presence: true
   accepts_nested_attributes_for :category
 end
