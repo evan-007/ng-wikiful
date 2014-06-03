@@ -20,6 +20,7 @@
 			</ul>
 		</div>
 		<div class='col-sm-6'>
+      <div class='loadingSpinner' ng-if="loading"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
 			<div class="singleArticle" ng-if="activeArticle">
 				<h3>{{activeArticle.title}}</h3>
 				<p>{{activeArticle.body}}</p>
@@ -47,6 +48,7 @@
 		</div>
 	</div><!--row-->
 </div>
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
 </body>

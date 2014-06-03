@@ -4,7 +4,7 @@ angular.module('ngWikiful', ['ngResource' ,'restangular'])
 	.attr('content');
 })
 .controller('articlesCtrl', function($scope, $http, articleFactory, categoryFactory, Restangular){
-	
+
 	// $scope.articles = articleFactory.query();
 	$scope.getCategories = Restangular.all('api/v1/categories').getList()
   .then(function(data){
@@ -12,16 +12,20 @@ angular.module('ngWikiful', ['ngResource' ,'restangular'])
   });
 	
 	$scope.showArticle = function(article) {
-		// var articleId = article.id;
+		$scope.loading = true;
 		Restangular.one("api/v1/articles", article.id).get()
 		.then(function(data){
+      $scope.loading = false;
 			$scope.activeArticle = data;
 		});
 	};
 
-	$scope.getArticles = Restangular.all('api/v1/articles').getList()
+	$scope.getArticles = 
+    $scope.loading = true
+    Restangular.all('api/v1/articles').getList()
 	.then(function(data){
 		$scope.articles = data;
+    $scope.loading = false;
 	});
 
 	$scope.postArticle = function() {
@@ -44,19 +48,23 @@ angular.module('ngWikiful', ['ngResource' ,'restangular'])
     };
 		if ($scope.activeArticle.id > 0 ) {
       		var id = $scope.activeArticle.id;
+      $scope.loading = true;
       Restangular.one("api/v1/articles", id).put({params: jsonArticle})
 			$http.put('/api/v1/articles/'+$scope.activeArticle.id, jsonArticle)
 			.then(function() {
 				Restangular.all('api/v1/articles').getList()
 				.then(function(data){
 					$scope.articles = data;
+          $scope.loading = false;
 				});
 			});
 		} else {
+      $scope.loading = true;
 			Restangular.all('api/v1/articles').post(newArticle)
 			.then(function() {
 				Restangular.all('api/v1/articles').getList()
 				.then(function(data){
+          $scope.loading = false;
 					$scope.articles = data;
 				});
 			});
@@ -65,12 +73,14 @@ angular.module('ngWikiful', ['ngResource' ,'restangular'])
 
 	$scope.deleteArticle = function(article) {
 		var id = article.id;
+    $scope.loading = true;
 		Restangular.one("api/v1/articles", id).remove()
 		.then(function() {
 			$scope.activeArticle = undefined;
 			Restangular.all('api/v1/articles').getList()
 			.then(function(data){
 				$scope.articles = data;
+        $scope.loading = false;
 			});
 		});
 	};
