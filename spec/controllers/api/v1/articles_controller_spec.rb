@@ -11,6 +11,7 @@ describe Api::V1::ArticlesController do
 		it "returns an array of all articles" do
 			get :index
 			expect(assigns(:articles)).to eq [@article, @article3, @article2]
+			expect(response.status).to eq 200
 		end
 
 		it 'includes categories in the response' do
