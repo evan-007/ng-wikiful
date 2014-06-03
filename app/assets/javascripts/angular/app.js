@@ -6,13 +6,15 @@ angular.module('ngWikiful', ['ngResource' ,'restangular'])
 .controller('articlesCtrl', function($scope, $http, articleFactory, categoryFactory, Restangular){
 	
 	// $scope.articles = articleFactory.query();
-	$scope.categories = categoryFactory.query();
+	$scope.getCategories = Restangular.all('api/v1/categories').getList()
+  .then(function(data){
+    $scope.categories = data;
+  });
 	
 	$scope.showArticle = function(article) {
 		// var articleId = article.id;
 		Restangular.one("api/v1/articles", article.id).get()
 		.then(function(data){
-			console.log(data);
 			$scope.activeArticle = data;
 		});
 	};
