@@ -3,19 +3,20 @@ module Api
 		class ArticlesController < ApplicationController
 			def index
 				@articles = Article.all.includes(:categories)
-				render json: @articles
+				render json: @articles, status: 200
 			end
 
 			def show
 				@article = Article.includes(:categories).find(params[:id])
-				render json: @article
+				render json: @article, status: 200
 			end
 
 			def create
 				@article = Article.new(article_params)
 				if @article.save
-					render json: @article
+					render nothing: true, status: 204
 				else
+					render json: @article.errors, status: 422
 				end
 			end
 

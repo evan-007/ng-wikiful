@@ -26,6 +26,7 @@ describe Api::V1::ArticlesController do
 			@article = create(:article)
 			get :show, id: @article
 			expect(assigns(:article)).to eq @article
+			expect(response.status).to eq 200
 		end
 
 		it 'includes article categories' do
@@ -40,6 +41,11 @@ describe Api::V1::ArticlesController do
 		it 'saves the article in the database' do
 			expect {post :create, article: attributes_for(:article)}
 			.to change(Article, :count).by(1)
+		end
+
+		it 'returns 422 when unvalid' do
+			post :create, { article: {title:nil} }
+			expect(response.status).to eq 422
 		end
 	end
 
