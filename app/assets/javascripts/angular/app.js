@@ -41,6 +41,8 @@ angular.module('ngWikiful', ['ngResource' ,'restangular'])
       }
     };
 		if ($scope.activeArticle.id > 0 ) {
+      		var id = $scope.activeArticle.id;
+      Restangular.one("api/v1/articles", id).put({params: jsonArticle})
 			$http.put('/api/v1/articles/'+$scope.activeArticle.id, jsonArticle)
 			.then(function() {
 				Restangular.all('api/v1/articles').getList()
