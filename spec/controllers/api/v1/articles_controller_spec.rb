@@ -54,6 +54,7 @@ describe Api::V1::ArticlesController do
 			@article = create(:article)
 			expect {delete :destroy, id: @article}
 			.to change(Article, :count).by(-1)
+			expect(response.status).to eq 204
 		end
 	end
 

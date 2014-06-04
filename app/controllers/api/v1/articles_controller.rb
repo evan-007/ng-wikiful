@@ -23,7 +23,7 @@ module Api
 			def destroy
 				@article = Article.find(params[:id])
 				if @article.destroy
-					render json: nil, status: 200
+					render json: nil, status: 204
 				end
 			end
 
