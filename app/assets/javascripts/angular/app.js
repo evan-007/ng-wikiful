@@ -1,7 +1,27 @@
-angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise'])
+angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute'])
 .config(function($httpProvider) {
 	$httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token')
 	.attr('content');
+})
+
+  
+.config(function($routeProvider) {
+    $routeProvider.
+      when('/', {
+        templateUrl: 'templates/main.html',
+        controller: 'articlesCtrl'
+      }).
+      when('/signup', {
+        templateUrl: 'templates/signup.html',
+        controller: 'userCtrl'
+      }).
+      when('/signin', {
+        templateUrl: 'templates/signin.html',
+        controller: 'sessionsCtrl'
+      }).
+      otherwise({
+        redirectTo: '/'
+      });
 })
 
 .controller('userCtrl', function(Auth, $scope){

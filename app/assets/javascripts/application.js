@@ -15,6 +15,7 @@
 //= require select2
 //= require angular
 //= require angular-resource
+//= require angular-route
 //= require lodash
 //= require restangular.min
 //= require devise
