@@ -47,6 +47,26 @@
 			</form>
 		</div>
 	</div><!--row-->
+  <div class="row">
+    <div class="col-md-4" ng-controller="userCtrl">
+      <h3>Signup</h3>
+      <form name='registrationForm' ng-submit="registrationForm.$valid && signUp(user)" novalidate>
+        <label>Username</label>
+        <input type="text" ng-model="user.name" name="userName" class="form-control" required>
+        <label>email</label>
+        <input type="email" ng-model="user.email" name="email" class="form-control" required>
+        <label>password</label>
+        <input type="password" ng-model="user.password" name="password" class="form-control" required>
+        <label>password confirmation</label>
+        <input type="password" ng-model="user.passwordConfirmation" name="passwordconfirmation" class="form-control" required>
+        <input type="submit" name="signup" class="btn btn-primary" value="Sign up">
+
+      </form>
+      <div class='col-md-4'>
+        {{user.name}} | {{user.email}} | {{user.password}} | {{user.passwordConfirmation}}
+      </div>
+    </div>
+  </div>
 </div>
 <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 

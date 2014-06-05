@@ -1,8 +1,30 @@
-angular.module('ngWikiful', ['ngResource' ,'restangular'])
+angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise'])
 .config(function($httpProvider) {
 	$httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token')
 	.attr('content');
 })
+
+.controller('userCtrl', function(Auth, $scope){
+  $scope.user = {}
+  var credentials = {
+    user: {
+      email: $scope.user.email,
+      name: $scope.user.name,
+      password: $scope.user.password,
+      password_confirmation: $scope.user.passwordConfirmation
+    }
+  };
+  
+  $scope.signUp = function(credentials) {
+    console.log(credentials);
+    Auth.register(credentials).then(function(registeredUser) {
+      console.log(registeredUser);
+    }, function(error) {
+      console.log(error);
+    });
+  }
+})
+
 .controller('articlesCtrl', function($scope, $http, articleFactory, categoryFactory, Restangular){
 
 	// $scope.articles = articleFactory.query();
