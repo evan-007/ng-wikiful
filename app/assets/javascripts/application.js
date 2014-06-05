@@ -19,4 +19,5 @@
 //= require lodash
 //= require restangular.min
 //= require devise
+//= require ng-rails-csrf
 //= require_tree .

@@ -1,4 +1,4 @@
-angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute'])
+angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', 'ng-rails-csrf'])
 .config(function($httpProvider) {
 	$httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token')
 	.attr('content');
@@ -42,20 +42,27 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute'])
     }, function(error) {
       console.log(error);
     });
-  }
+  };
 })
 
 .controller('sessionsCtrl', function(Auth, $scope) {
-  $scope.user = {}
+  $scope.user = {};
   var credentials = {
     email: $scope.user.email,
     password: $scope.user.password
+  };
+
+  $scope.testAccount = function() {
+    $scope.user.email = 'test@test.com';
+    $scope.user.password = '1234qwer';
   };
   
   $scope.logIn = function(credentials) {
     Auth.login(credentials).then(function(user) {
       $scope.isLoggedIn = true;
       $scope.currentUser = user.email;
+      $scope.user = '';
+      $scope.message = "You're logged in as "+user.email;
       console.log(user);
     }, function(error) {
       console.log(error);
@@ -69,12 +76,12 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute'])
     }, function(error) {
       // An error occurred logging out.
     });
-  }
+  };
   
   $scope.checkIfSession = function () {
     
     $scope.isLoggedIn = Auth.isAuthenticated(); // => false
-  }
+  };
 })
 
 .controller('articlesCtrl', function($scope, $http, articleFactory, categoryFactory, Restangular){

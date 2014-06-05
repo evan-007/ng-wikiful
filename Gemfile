@@ -18,6 +18,7 @@ gem 'shoulda-matchers', group: [:test]
 gem 'factory_girl_rails', group: :test
 
 gem 'angularjs-rails'
+gem 'ng-rails-csrf'
 
 gem "active_model_serializers"
 

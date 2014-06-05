@@ -1,6 +1,8 @@
 <div class="row">
   <div class="col-md-4" ng-controller="sessionsCtrl">
     <h3>Sign In</h3>
+    <div ng-if='message'>{{message}}</div>
+    <button class='btn btn-warning' ng-click='testAccount();'>Use test account</button>
     <form name='sessionsForm' ng-submit="sessionsForm.$valid && logIn(user)" novalidate>
       <label>email</label>
       <input type="email" ng-model="user.email" name="email" class="form-control" required>
