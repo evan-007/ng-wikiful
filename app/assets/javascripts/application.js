@@ -17,4 +17,5 @@
 //= require angular-resource
 //= require lodash
 //= require restangular.min
+//= require devise
 //= require_tree .

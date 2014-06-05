@@ -9,6 +9,8 @@ gem 'pg'
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass', '~> 3.1.1'
 
+gem 'devise'
+
 gem 'rspec-rails', group: [:test, :development]
 #need minitest before shoulda to stop messages on rspec run wtf
 gem 'minitest'
