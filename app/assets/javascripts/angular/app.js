@@ -45,6 +45,30 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute'])
   }
 })
 
+.controller('sessionsCtrl', function(Auth, $scope) {
+  $scope.user = {}
+  var credentials = {
+    email: $scope.user.email,
+    password: $scope.user.password
+  };
+  
+  $scope.logIn = function(credentials) {
+    Auth.login(credentials).then(function(user) {
+      console.log(user);
+    }, function(error) {
+      console.log(error);
+    });
+  };
+  
+  $scope.signOut = function() {
+    Auth.logout().then(function(oldUser) {
+      console.log(oldUser.email + "you're signed out now.");
+    }, function(error) {
+      // An error occurred logging out.
+    });
+  }
+})
+
 .controller('articlesCtrl', function($scope, $http, articleFactory, categoryFactory, Restangular){
 
 	// $scope.articles = articleFactory.query();
