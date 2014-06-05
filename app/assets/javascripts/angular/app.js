@@ -54,6 +54,8 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute'])
   
   $scope.logIn = function(credentials) {
     Auth.login(credentials).then(function(user) {
+      $scope.isLoggedIn = true;
+      $scope.currentUser = user.email;
       console.log(user);
     }, function(error) {
       console.log(error);
@@ -63,9 +65,15 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute'])
   $scope.signOut = function() {
     Auth.logout().then(function(oldUser) {
       console.log(oldUser.email + "you're signed out now.");
+      $scope.isLoggedIn = false;
     }, function(error) {
       // An error occurred logging out.
     });
+  }
+  
+  $scope.checkIfSession = function () {
+    
+    $scope.isLoggedIn = Auth.isAuthenticated(); // => false
   }
 })
 
