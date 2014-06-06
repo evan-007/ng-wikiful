@@ -3,7 +3,6 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
 	$httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token')
 	.attr('content');
 })
-
   
 .config(function($routeProvider) {
     $routeProvider.
@@ -24,8 +23,16 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
       });
 })
 
+.run(function($rootScope, Auth) {
+  Auth.login().then(function() {
+    console.log(Auth.isAuthenticated());
+    var currentUser = Auth._currentUser.email;
+    console.log(currentUser);
+  });
+})
+
 .controller('userCtrl', function(Auth, $scope){
-  $scope.user = {}
+  $scope.user = {};
   var credentials = {
     user: {
       email: $scope.user.email,
