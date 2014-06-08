@@ -23,13 +23,13 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
       });
 })
 
-.run(function($rootScope, Auth) {
-  Auth.login().then(function() {
-    console.log(Auth.isAuthenticated());
-    var currentUser = Auth._currentUser.email;
-    console.log(currentUser);
-  });
-})
+// .run(function($rootScope, Auth) {
+//   Auth.login().then(function() {
+//     console.log(Auth.isAuthenticated());
+//     var currentUser = Auth._currentUser.email;
+//     console.log(currentUser);
+//   });
+// })
 
 .controller('userCtrl', function(Auth, $scope){
   $scope.user = {};
@@ -94,7 +94,12 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
   
   $scope.checkIfSession = function () {
     
-    $scope.isLoggedIn = Auth.isAuthenticated(); // => false
+    Auth.login().then(function() {
+      var currentUser = Auth._currentUser;
+      $scope.authUser = authUser;
+      $scope.authUser.email = Auth._currentUser.email;
+      $scope.authUser.token = Auth._currentUser.token;
+    });
   };
 })
 
@@ -116,7 +121,7 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
 	};
 
 	$scope.getArticles = 
-    $scope.loading = true
+  $scope.loading = true;
     Restangular.all('api/v1/articles').getList()
 	.then(function(data){
 		$scope.articles = data;
@@ -142,9 +147,9 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
       }
     };
 		if ($scope.activeArticle.id > 0 ) {
-      		var id = $scope.activeArticle.id;
+      var id = $scope.activeArticle.id;
       $scope.loading = true;
-      Restangular.one("api/v1/articles", id).put({params: jsonArticle})
+      Restangular.one("api/v1/articles", id).put({params: jsonArticle});
 			$http.put('/api/v1/articles/'+$scope.activeArticle.id, jsonArticle)
 			.then(function() {
 				Restangular.all('api/v1/articles').getList()
