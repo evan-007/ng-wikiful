@@ -12,7 +12,7 @@ module Api
 			end
 
 			def create
-				@article = Article.new(article_params)
+				@article = current_user.articles.new(article_params)
 				if @article.save
 					render nothing: true, status: 204
 				else

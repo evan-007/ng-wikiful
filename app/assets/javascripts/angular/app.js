@@ -1,8 +1,4 @@
 angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', 'ng-rails-csrf'])
-.config(function($httpProvider) {
-	$httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token')
-	.attr('content');
-})
   
 .config(function($routeProvider) {
     $routeProvider.
@@ -138,7 +134,7 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
         category_ids: $scope.activeArticle.catIds,
       }
     };
-    
+
 		if ($scope.activeArticle.id > 0 ) {
       var id = $scope.activeArticle.id;
       $scope.loading = true;
