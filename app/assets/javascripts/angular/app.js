@@ -138,6 +138,9 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
         category_ids: $scope.activeArticle.catIds,
       }
     };
+
+    var auth_token = authUser.token;
+
 		if ($scope.activeArticle.id > 0 ) {
       var id = $scope.activeArticle.id;
       $scope.loading = true;
@@ -152,7 +155,7 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
 			});
 		} else {
       $scope.loading = true;
-			Restangular.all('api/v1/articles').post(newArticle)
+			Restangular.all('api/v1/articles').post(newArticle, {token: auth_token})
 			.then(function() {
 				Restangular.all('api/v1/articles').getList()
 				.then(function(data){
