@@ -52,7 +52,7 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
   };
 })
 
-.controller('sessionsCtrl', function(Auth, $scope) {
+.controller('sessionsCtrl', function(Auth, $scope, authUser) {
   $scope.user = {};
   var credentials = {
     email: $scope.user.email,
@@ -70,7 +70,10 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
       $scope.currentUser = user.email;
       $scope.user = '';
       $scope.message = "You're logged in as "+user.email;
-      console.log(user);
+      $scope.authUser = authUser;
+      $scope.authUser.email = user.email;
+      $scope.authUser.token = user.auth_token;
+      console.log(authUser);
     }, function(error) {
       console.log(error);
     });
@@ -91,7 +94,7 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
   };
 })
 
-.controller('articlesCtrl', function($scope, $http, articleFactory, categoryFactory, Restangular){
+.controller('articlesCtrl', function($scope, $http, Restangular){
 
 	// $scope.articles = articleFactory.query();
 	$scope.getCategories = Restangular.all('api/v1/categories').getList()
