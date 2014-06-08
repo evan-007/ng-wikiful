@@ -23,14 +23,6 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
       });
 })
 
-// .run(function($rootScope, Auth) {
-//   Auth.login().then(function() {
-//     console.log(Auth.isAuthenticated());
-//     var currentUser = Auth._currentUser.email;
-//     console.log(currentUser);
-//   });
-// })
-
 .controller('userCtrl', function(Auth, $scope){
   $scope.user = {};
   var credentials = {
