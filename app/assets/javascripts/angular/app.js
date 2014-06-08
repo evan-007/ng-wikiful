@@ -194,20 +194,6 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
 	};
 })
 
-.factory('articleFactory', function($resource) {
-	return $resource('/api/v1/articles/:id', {id: '@id'}, {
-		update: {method: 'PUT'}
-	});
-})
-
-.factory('categoryFactory', function($resource) {
-	return $resource('/api/v1/categories/:id', {id: '@id', });
-})
-
-.factory('restangularArticles', function(restangular) {
-	var baseArticles = Restangular.all('api/v1/articles');
-
-	baseArticles.getList().then(function(articles){
-		$scope.allArticles = articles;
-	});
+.factory('authUser', function(){
+  return {};
 });
