@@ -12,8 +12,8 @@
 			<div class="singleArticle" ng-if="activeArticle">
 				<h3>{{activeArticle.title}}</h3>
 				<p>{{activeArticle.body}}</p>
-				<h5>Categories:</h5>
 				<h6 ng-if='activeArticle.written_by'>Written by: {{activeArticle.written_by}}</h6>
+				<h5>Categories:</h5>
 				<p> <span ng-repeat="category in activeArticle.categories">{{category.name}} </span></p>
 				<button ng-if="activeArticle.id" ng-click="deleteArticle(activeArticle)" class="btn btn-danger">Delete! no undos!</button>
 			</div>
