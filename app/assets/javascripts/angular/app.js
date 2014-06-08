@@ -53,6 +53,7 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
 })
 
 .controller('sessionsCtrl', function(Auth, $scope, authUser) {
+  $scope.authUser = authUser;
   $scope.user = {};
   var credentials = {
     email: $scope.user.email,
@@ -83,6 +84,9 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
     Auth.logout().then(function(oldUser) {
       console.log(oldUser.email + "you're signed out now.");
       $scope.isLoggedIn = false;
+      $scope.authUser = authUser;
+      $scope.authUser.email = '';
+      $scope.authUser.token = '';
     }, function(error) {
       // An error occurred logging out.
     });
@@ -94,8 +98,8 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
   };
 })
 
-.controller('articlesCtrl', function($scope, $http, Restangular){
-
+.controller('articlesCtrl', function($scope, $http, Restangular, authUser){
+  $scope.authUser = authUser;
 	// $scope.articles = articleFactory.query();
 	$scope.getCategories = Restangular.all('api/v1/categories').getList()
   .then(function(data){

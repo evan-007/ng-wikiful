@@ -20,6 +20,7 @@
 
 		<div class="col-sm-4">
 			<button class="btn btn-sm btn-primary" ng-if="activeArticle" ng-click="resetForm()" ng-init="getCategories">Reset Form</button>
+			<h5 ng-if="authUser.email">Hi {{authUser.email}}</h5>
 			<form name="newArticleForm" ng-submit="newArticleForm.$valid && postArticle()" novalidate>
 				<label>Article Title</label>
 				<input type="text" ng-model="activeArticle.title" name="articleTitle" class="form-control" required>
