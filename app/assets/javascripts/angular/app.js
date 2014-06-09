@@ -22,6 +22,14 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
         templateUrl: 'templates/category.html',
         controller: 'categoryCtrl'
       }).
+      when('/articles/:article', {
+        templateUrl: 'templates/article.html',
+        controller: 'articleCtrl'
+      }).
+      when('/myarticles', {
+        templateUrl: 'templates/myarticles.html',
+        controller: 'userArticlesCtrl'
+      }).
       otherwise({
         redirectTo: '/'
       });
@@ -68,6 +76,7 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
       $scope.user = '';
       $scope.message = "You're logged in as "+user.email;
       $scope.authUser = authUser;
+      $scope.authUser.id = user.id;
       $scope.authUser.email = user.email;
       $scope.authUser.token = user.auth_token;
       console.log(authUser);
@@ -121,6 +130,24 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
     console.log(data);
     console.log(catId)
     $scope.category = data;
+  });
+})
+
+.controller('articleCtrl', function($scope, Restangular, $routeParams){
+  var artId = $routeParams.article;
+  $scope.getArticle = Restangular.one('api/v1/articles', artId).get()
+  .then(function(data) {
+    console.log(data);
+    $scope.article = data;
+  })
+})
+
+.controller('userArticlesCtrl', function($scope, Restangular, $routeParams, authUser){
+  $scope.authUser = authUser;
+  var userId = authUser.id;
+  $scope.getUserArticles = Restangular.all('api/v1/users').getList()
+  .then(function(data){
+    $scope.articles = data;
   });
 })
 

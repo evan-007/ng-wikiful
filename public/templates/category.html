@@ -1,6 +1,7 @@
 <div ng-controller="categoryCtrl" ng-init='getOneCategory'>
   <h2>{{category.name}}</h2>
   <ul>
-    <li ng-repeat='article in category.articles'><a ng-href='#/articles/{{article.id}}'>{{article.title}}</a></li>
+    <li ng-repeat='article in category.articles'>
+      <a ng-href='#/articles/{{article.id}}'>{{article.title}}</a></li>
   <ul>
 </div>

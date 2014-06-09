@@ -14,7 +14,7 @@
   <div class="col-md-4">
     <h3>Random Articles:</h3>
     <ul>
-      <li ng-repeat="article in articles"><a href="#/articles">{{article.title}}</a></li>
+      <li ng-repeat="article in articles"><a ng-href="#/articles/{{article.id}}">{{article.title}}</a></li>
     </ul>
   </div>
   

@@ -1,0 +1,39 @@
+<div class="row" ng-controller="userArticlesCtrl" ng-init="getUserArticles">
+		<div class="col-sm-2">
+			<h3>Articles</h3>
+			<ul class="list-group">
+				<li class="list-group-item" ng-repeat="article in articles" ng-click="showArticle(article)">
+					{{article.title}}
+				</li>
+			</ul>
+		</div>
+		<div class='col-sm-6'>
+      <div class='loadingSpinner' ng-if="loading"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
+			<div class="singleArticle" ng-if="activeArticle">
+				<h3>{{activeArticle.title}}</h3>
+				<p>{{activeArticle.body}}</p>
+				<h6 ng-if='activeArticle.written_by'>Written by: {{activeArticle.written_by}}</h6>
+				<h5>Categories:</h5>
+				<p> <span ng-repeat="category in activeArticle.categories">{{category.name}} </span></p>
+				<button ng-if="activeArticle.id" ng-click="deleteArticle(activeArticle)" class="btn btn-danger">Delete! no undos!</button>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<button class="btn btn-sm btn-primary" ng-if="activeArticle" ng-click="resetForm()" ng-init="getCategories">Reset Form</button>
+			<h5 ng-if="authUser.email">Hi {{authUser.email}}</h5>
+			<form name="newArticleForm" ng-submit="newArticleForm.$valid && postArticle()" novalidate>
+				<label>Article Title</label>
+				<input type="text" ng-model="activeArticle.title" name="articleTitle" class="form-control" required>
+				<label>Body</label>
+				<textarea name="articleBody" rows='12' ng-model="activeArticle.body" class="form-control" required></textarea>
+
+				<label>Categories</label>
+
+				<select multiple="true" ng-model="activeArticle.categories" style="width:200px;"
+				ng-options="category as category.name for category in categories track by category.id">
+				</select><br/>
+				<input type="submit" class="btn btn-primary" value="Post it!">
+			</form>
+		</div>
+	</div><!--row-->
