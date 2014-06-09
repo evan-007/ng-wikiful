@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Api::V1::ArticlesController do
+  before do
+    @user = create(:user)
+    sign_in @user
+  end
 	describe 'GET #index' do
 		before do
 			@article = create(:article_with_categories)

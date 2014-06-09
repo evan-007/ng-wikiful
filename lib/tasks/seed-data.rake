@@ -27,3 +27,8 @@ task associate: :environment do
   	article.update(categories: [art_cat])
   end
 end
+
+task test_account: :environment do
+  a = User.new(email: 'test@test.com', password: '1234qwer', password_confirmation: '1234qwer')
+  a.save
+end
