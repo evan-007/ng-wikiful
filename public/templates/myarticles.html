@@ -20,7 +20,7 @@
 		</div>
 
 		<div class="col-sm-4">
-			<button class="btn btn-sm btn-primary" ng-if="activeArticle" ng-click="resetForm()" ng-init="getCategories">Reset Form</button>
+			<button class="btn btn-sm btn-primary" ng-if="activeArticle" ng-click="resetForm()" ng-init="getCategories">New Article</button>
 			<h5 ng-if="authUser.email">Hi {{authUser.email}}</h5>
 			<form name="newArticleForm" ng-submit="newArticleForm.$valid && postArticle()" novalidate>
 				<label>Article Title</label>
