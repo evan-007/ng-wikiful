@@ -46,6 +46,11 @@ describe Api::V1::ArticlesController do
 			expect {post :create, article: attributes_for(:article)}
 			.to change(Article, :count).by(1)
 		end
+    
+    it 'save the article under the current user' do
+      expect {post :create, article: attributes_for(:article)}
+      .to change(@user.articles, :count).by(1)
+    end
 
 		it 'returns 422 when unvalid' do
 			post :create, { article: {title:nil} }
