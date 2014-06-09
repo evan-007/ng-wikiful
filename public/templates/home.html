@@ -1,0 +1,25 @@
+<div class="jumbotron">
+  <h1>Hello, Angular Rails!</h1>
+  <p>It's an article directory, with angular and rails, written by the finest Lorem Ipsum generators available.</p>
+</div>
+
+<div class="row" ng-controller="homeCtrl">
+  <div class="col-md-4">
+    <h3>All your favorite categories:</h3>
+    <ul>
+      <li ng-repeat="category in categories"><a href="#/categories">{{category.name}}</a></li>
+    </ul>
+  </div>
+  
+  <div class="col-md-4">
+    <h3>Random Articles:</h3>
+    <ul>
+      <li ng-repeat="article in articles"><a href="#/articles">{{article.title}}</a></li>
+    </ul>
+  </div>
+  
+  <div class="col-md-4">
+    <h3>Signup or login to write</h3>
+    <p><a href="#/signup" class="btn btn-primary" role="button">Signup</a> <a href="#/signin" class="btn btn-default" role="button">Signin</a></p>
+  </div>
+</div>

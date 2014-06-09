@@ -3,8 +3,8 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
 .config(function($routeProvider) {
     $routeProvider.
       when('/', {
-        templateUrl: 'templates/main.html',
-        controller: 'articlesCtrl'
+        templateUrl: 'templates/home.html',
+        controller: 'homeCtrl'
       }).
       when('/signup', {
         templateUrl: 'templates/signup.html',
@@ -13,6 +13,10 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
       when('/signin', {
         templateUrl: 'templates/signin.html',
         controller: 'sessionsCtrl'
+      }).
+      when('/articles', {
+        templateUrl: 'templates/main.html',
+        controller: 'articlesCtrl'
       }).
       otherwise({
         redirectTo: '/'
@@ -89,6 +93,21 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
       $scope.authUser.token = Auth._currentUser.token;
     });
   };
+})
+
+.controller('homeCtrl', function($scope, Restangular, authUser){
+  $scope.authUser = authUser;
+  
+  $scope.getCategories = Restangular.all('api/v1/categories').getList()
+  .then(function(data){
+    $scope.categories = data;
+  });
+  
+  $scope.getArticles = Restangular.all('home').getList()
+  .then(function(data){
+    $scope.articles = data;
+  });
+  
 })
 
 .controller('articlesCtrl', function($scope, $http, Restangular, authUser){
