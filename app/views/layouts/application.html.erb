@@ -14,8 +14,8 @@
   <a href="#/" class="btn btn-primary">Home</a>
   <div id="sessions" ng-controller="sessionsCtrl" ng-init="checkIfSession()">
     <a href="#/signin" ng-if="!authUser.email" class="btn btn-primary" >Signin</a>
-    <button class="btn btn-warning" ng-if="authUser.email" ng-click="signOut();">Signout</button>
     <a href="#/signup" ng-if="!authUser.email" class="btn btn-primary">Signup</a>
+    <button class="btn btn-warning" ng-if="authUser.email" ng-click="signOut();">Signout</button>
   </div>
   
   <div ng-view></div>

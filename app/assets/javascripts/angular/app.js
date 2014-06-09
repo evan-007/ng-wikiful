@@ -18,6 +18,10 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
         templateUrl: 'templates/main.html',
         controller: 'articlesCtrl'
       }).
+      when('/categories/:category', {
+        templateUrl: 'templates/category.html',
+        controller: 'categoryCtrl'
+      }).
       otherwise({
         redirectTo: '/'
       });
@@ -108,6 +112,16 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
     $scope.articles = data;
   });
   
+})
+
+.controller('categoryCtrl', function($scope, Restangular, $routeParams){
+  var catId = $routeParams.category;
+  $scope.getOneCategory = Restangular.one('api/v1/categories', catId).get()
+  .then(function(data) {
+    console.log(data);
+    console.log(catId)
+    $scope.category = data;
+  });
 })
 
 .controller('articlesCtrl', function($scope, $http, Restangular, authUser){

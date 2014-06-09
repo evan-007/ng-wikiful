@@ -17,4 +17,14 @@ describe Api::V1::CategoriesController do
 			expect(data[0]['name']).to eq @cat.name
 		end
 	end
+  
+  describe 'GET #show' do
+    it 'renders one category as json' do
+      @category = create(:category)
+      get :show, id: @category.id
+      data = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(data).to include @category.to_json
+    end
+  end
 end

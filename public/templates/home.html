@@ -7,7 +7,7 @@
   <div class="col-md-4">
     <h3>All your favorite categories:</h3>
     <ul>
-      <li ng-repeat="category in categories"><a href="#/categories">{{category.name}}</a></li>
+      <li ng-repeat="category in categories"><a ng-href="#/categories/{{category.id}}">{{category.name}}</a></li>
     </ul>
   </div>
   
