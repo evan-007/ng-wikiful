@@ -21,14 +21,14 @@ module Api
 			end
 
 			def destroy
-				@article = Article.find(params[:id])
+        @article = current_user.articles.find(params[:id])
 				if @article.destroy
 					render json: nil, status: 204
 				end
 			end
 
 			def update
-				@article = Article.find(params[:id])
+        @article = current_user.articles.find(params[:id])
 				if @article.update_attributes(article_params)
 					render json: @article, status: 200
 				else
