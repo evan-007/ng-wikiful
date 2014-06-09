@@ -1,0 +1,3 @@
+<ul ng-controller='categoryCtrl' ng-init='getCategories'>
+  <li ng-repeat='category in categories'><a ng-href="#/categories/{{category.id}}">{{category.name}}</a> <span ng-if='category.article_count'>| {{category.article_count}} articles</span></li>
+</ul>

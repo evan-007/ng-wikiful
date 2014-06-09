@@ -10,8 +10,11 @@
 
 <div class="container">
   <h2>ng-Wikiful</h2>
-     
-  <a href="#/" class="btn btn-primary">Home</a>
+  <ul class='list-inline'>
+    <li><a href="#/" class="btn btn-primary">Home</a></li>
+    <li><a href="#/articles" class="btn btn-success">Articles</a></li>
+    <li><a href="#/categories" class="btn btn-default">Categories</a></li>
+  </ul>
   <div id="sessions" ng-controller="sessionsCtrl" ng-init="checkIfSession()">
     <ul class='list-inline'>
       <li><a href="#/signin" ng-if="!authUser.email" class="btn btn-primary" >Signin</a></li>

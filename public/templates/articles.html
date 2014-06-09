@@ -1,0 +1,6 @@
+<ul ng-controller='articlesCtrl' ng-init='getArticles'  ng-repeat='article in articles'>
+  <li><a ng-href="#/articles/{{article.id}}">{{article.title}}</a> <span ng-if='article.written_by'>| {{article.written_by}}</span></li>
+  <ul class='list-inline'>
+    <li ng-repeat='category in article.categories'>{{category.name}}</li>
+  </ul>
+</ul>

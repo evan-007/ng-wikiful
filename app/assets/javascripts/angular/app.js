@@ -15,7 +15,7 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
         controller: 'sessionsCtrl'
       }).
       when('/articles', {
-        templateUrl: 'templates/main.html',
+        templateUrl: 'templates/articles.html',
         controller: 'articlesCtrl'
       }).
       when('/categories/:category', {
@@ -29,6 +29,10 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
       when('/myarticles', {
         templateUrl: 'templates/myarticles.html',
         controller: 'userArticlesCtrl'
+      }).
+      when('/categories', {
+        templateUrl: 'templates/categories.html',
+        controller: 'categoriesCtrl'
       }).
       otherwise({
         redirectTo: '/'
@@ -244,13 +248,7 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
 	};
 })
 
-.controller('articlesCtrl', function($scope, $http, Restangular, authUser){
-  $scope.authUser = authUser;
-	// $scope.articles = articleFactory.query();
-	$scope.getCategories = Restangular.all('api/v1/categories').getList()
-  .then(function(data){
-    $scope.categories = data;
-  });
+.controller('articlesCtrl', function($scope, Restangular){
 	
 	$scope.showArticle = function(article) {
 		$scope.loading = true;
@@ -268,84 +266,13 @@ angular.module('ngWikiful', ['ngResource' ,'restangular', 'Devise', 'ngRoute', '
 		$scope.articles = data;
     $scope.loading = false;
 	});
+})
 
-	$scope.postArticle = function() {
-		gimmeIds($scope.activeArticle.categories);
-    var jsonArticle = {
-      article: {
-        title: $scope.activeArticle.title,
-        body: $scope.activeArticle.body,
-        category_ids: $scope.activeArticle.catIds,
-        id: $scope.activeArticle.id
-      }
-    };
-
-    var newArticle = {
-			article: {
-        title: $scope.activeArticle.title,
-        body: $scope.activeArticle.body,
-        category_ids: $scope.activeArticle.catIds,
-      }
-    };
-
-		if ($scope.activeArticle.id > 0 ) {
-      var id = $scope.activeArticle.id;
-      $scope.loading = true;
-      Restangular.one("api/v1/articles", id).put({params: jsonArticle});
-			$http.put('/api/v1/articles/'+$scope.activeArticle.id, jsonArticle)
-			.then(function() {
-				Restangular.all('api/v1/articles').getList()
-				.then(function(data){
-					$scope.articles = data;
-          $scope.loading = false;
-				});
-			});
-		} else {
-      $scope.loading = true;
-			Restangular.all('api/v1/articles').post(newArticle)
-			.then(function() {
-				Restangular.all('api/v1/articles').getList()
-				.then(function(data){
-          $scope.loading = false;
-					$scope.articles = data;
-				});
-			});
-		}
-	};
-
-	$scope.deleteArticle = function(article) {
-		var id = article.id;
-    $scope.loading = true;
-		Restangular.one("api/v1/articles", id).remove()
-		.then(function() {
-			$scope.activeArticle = undefined;
-			Restangular.all('api/v1/articles').getList()
-			.then(function(data){
-				$scope.articles = data;
-        $scope.loading = false;
-			});
-		});
-	};
-
-	$scope.resetForm = function() {
-		$scope.activeArticle = undefined;
-	};
-
-	gimmeIds = function(categoriesArray) {
-		var idList = [];
-    for(var i=0;i<categoriesArray.length;i++){
-        var obj = categoriesArray[i];
-        for(var key in obj){
-            var attrName = key;
-            var attrValue = obj[key];
-            if (key === "id") {
-							console.log(attrValue);
-							idList.push(attrValue);
-            }
-        }
-        $scope.activeArticle.catIds = idList;
-    }
-	};
+.controller('categoriesCtrl', function($scope, Restangular){
+  $scope.getCategories = Restangular.all('api/v1/categories').getList()
+  .then(function(data){
+    $scope.categories = data;
+  });
 })
 
 .factory('authUser', function(){
